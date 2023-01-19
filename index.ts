@@ -13,8 +13,12 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to API: RESTful Express + TS + Swagger + Moongose");
 });
 
-// Execute APP and listen requests to PORT
+// Define HelloWorld route
+app.get("/hello", (req: Request, res: Response) => {
+  res.send("Welcome to GET route: Hello!");
+});
 
+// Execute APP and listen requests to PORT
 app.listen(port, () => {
   console.log(`EXPRESS SERVER: Running at http://localhost:${port}`);
 });
