@@ -5,7 +5,7 @@
 
 import express, { Request, Response } from "express";
 import helloRouter from "./HelloRouter";
-import * as logger from "@/utils/logger";
+import * as logger from "../utils/logger";
 
 // Server instance from express
 const server = express();
