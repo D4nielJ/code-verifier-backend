@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import { check, validationResult } from "express-validator";
 
 // Configuration the .env file
 dotenv.config();
@@ -14,8 +15,27 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Define HelloWorld route
-app.get("/hello", (req: Request, res: Response) => {
-  res.send("Welcome to GET route: Hello!");
+app.get(
+  "/hello",
+  [
+    check("name")
+      .optional()
+      .isLength({ min: 3 })
+      .withMessage("Name must be at least 3 chars long"),
+  ],
+  (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    const name = req.query.name || "anonymous";
+    res.send(`Hello, ${name}!`);
+  }
+);
+
+// define GoodBye route
+app.get("/bye", (req: Request, res: Response) => {
+  res.send("Goodbye, world!");
 });
 
 // Execute APP and listen requests to PORT
