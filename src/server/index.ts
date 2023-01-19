@@ -16,6 +16,9 @@ const server: Express = express();
 // From this point, all routes will be prefixed with "/api"
 server.use("/api", rootRouter);
 
+// Static server
+server.use(express.static("public"));
+
 // TODO Moongoose Connection
 
 // * Security configuration
